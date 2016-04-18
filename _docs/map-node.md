@@ -8,6 +8,7 @@ permalink: /docs/map-node.html
 
 Features:
 - uses `MKMapSnapshotOptions` as its primary specification format for map details. Among other things, this allows specifying 3D camera angles for snapshots loaded automatically and asynchronously while scrolling, with seamless transitions to an interactive map.
+- can set `.needsMapReloadOnBoundsChange` to automatically trigger a new snapshot when the bounds change. This ensures that the map snapshot always matches the bounds of the node, thereby keeping your UI in sync.
 
 Gotchas:
 - the liveMap mode is backed by a MKMapView which is NOT thread-safe
