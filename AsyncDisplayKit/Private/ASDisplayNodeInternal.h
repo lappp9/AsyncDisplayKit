@@ -77,6 +77,7 @@ FOUNDATION_EXPORT NSString * const ASRenderingEngineDidDisplayNodesScheduledBefo
     unsigned displaySuspended:1;
     unsigned shouldAnimateSizeChanges:1;
     unsigned hasCustomDrawingPriority:1;
+    unsigned shouldAutomaticallyLayerBack:1;
     
     // Wrapped view handling
     

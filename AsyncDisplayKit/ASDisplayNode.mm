@@ -707,6 +707,16 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
   if (!_layer) {
     ASDisplayNodeAssertMainThread();
 
+    //So at this point, you try to load the layer and if its not layer backed you load the view too
+    if (_flags.shouldAutomaticallyLayerBack) {
+      if ([self isKindOfClass:[ASControlNode class]]) {
+        if (((ASControlNode *)self).allTargets.count < 1) {
+          _flags.layerBacked = YES;
+        }
+      } else {
+        _flags.layerBacked = YES;
+      }
+    }
     if (!_flags.layerBacked) {
       return self.view.layer;
     }
@@ -1467,6 +1477,20 @@ static ASDisplayNodeMethodOverrides GetASDisplayNodeMethodOverrides(Class c)
       }
     });
   }
+}
+
+- (void)setShouldAutomaticallyLayerBack:(BOOL)shouldAutomaticallyLayerBack
+{
+  ASDisplayNodeAssertThreadAffinity(self);
+  {
+    ASDN::MutexLocker l(__instanceLock__);
+    
+    if (_flags.shouldAutomaticallyLayerBack == shouldAutomaticallyLayerBack)
+      return;
+    
+    _flags.shouldAutomaticallyLayerBack = shouldAutomaticallyLayerBack;
+  }
+
 }
 
 - (CGFloat)contentsScaleForDisplay

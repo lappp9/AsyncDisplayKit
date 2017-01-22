@@ -808,6 +808,17 @@ extern NSInteger const ASDefaultDrawingPriority;
 
 @end
 
+@interface ASDisplayNode (AutomaticLayerBacking)
+
+/**
+ * @abstract A boolean that tells a node that it should automatically set nodes in its hierarchy to be layerBacked when possible.
+ *
+ * @discussion If flag is YES, the node will actively try to avoid the generation of a view by using a backing layer instead.
+ */
+@property (nonatomic, assign) BOOL shouldAutomaticallyLayerBack;
+
+@end
+
 /*
  * ASDisplayNode participates in ASAsyncTransactions, so you can determine when your subnodes are done rendering.
  * See: -(void)asyncdisplaykit_asyncTransactionContainerStateDidChange in ASDisplayNodeSubclass.h
